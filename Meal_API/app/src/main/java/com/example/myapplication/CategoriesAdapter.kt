@@ -3,11 +3,15 @@ package com.example.myapplication
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.squareup.picasso.Picasso
+
 
 class CategoryViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     var nameTextView: TextView = itemView.findViewById(R.id.textview_name)
+    var nameImageView: ImageView = itemView.findViewById(R.id.imageview_name)
 }
 
 class CategoriesAdapter(val categories: List<Category>): RecyclerView.Adapter<CategoryViewHolder>() {
@@ -19,6 +23,7 @@ class CategoriesAdapter(val categories: List<Category>): RecyclerView.Adapter<Ca
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
         holder.nameTextView.setText(categories.get(position).strCategory)
+        Picasso.get().load(categories.get(position).strCategoryThumb).into(holder.nameImageView)
     }
 
     override fun getItemCount(): Int {
