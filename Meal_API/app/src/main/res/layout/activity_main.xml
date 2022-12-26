@@ -58,7 +58,7 @@
         android:paddingBottom="5dp"
         android:layout_marginTop="400dp"
         android:gravity="center"
-        android:text="Explore"
+        android:text="Explore categories"
         android:drawablePadding="10dp"
         android:background="@drawable/roundbutton_item"
         app:layout_constraintTop_toTopOf="parent"
@@ -78,6 +78,21 @@
         android:background="@drawable/roundbutton_item"
         app:layout_constraintTop_toBottomOf="@id/exploreview_name"
         android:id="@+id/randomview_name" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="22dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="Search by name"
+        android:drawablePadding="10dp"
+        android:background="@drawable/roundbutton_item"
+        app:layout_constraintTop_toBottomOf="@id/randomview_name"
+        android:id="@+id/searchnameview_name" />
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:layout_width="wrap_content"

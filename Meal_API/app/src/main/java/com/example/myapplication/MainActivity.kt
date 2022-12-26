@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.progressindicator.CircularProgressIndicator
+import com.google.android.material.textfield.TextInputEditText
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import okhttp3.*
@@ -28,6 +29,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var imageView: ImageView
 
+    private lateinit var searchNameView : TextView
+
     private lateinit var circularProgressIndicator: CircularProgressIndicator
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,6 +43,7 @@ class MainActivity : AppCompatActivity() {
         randomView = findViewById(R.id.randomview_name)
         imageView = findViewById(R.id.imageview_name)
         circularProgressIndicator = findViewById(R.id.circular_progress_indicator)
+        searchNameView = findViewById(R.id.searchnameview_name)
 
         val url = URL("https://www.themealdb.com/api/json/v1/1/random.php")
 
@@ -96,5 +100,12 @@ class MainActivity : AppCompatActivity() {
             tryView.visibility = View.GONE
             client.newCall(request).enqueue(callback)
         }
+
+        searchNameView.setOnClickListener {
+            val context = searchNameView.context
+            val intent = Intent(context, SearchNameActivity::class.java)
+            context.startActivity(intent)
+        }
+
     }
 }
