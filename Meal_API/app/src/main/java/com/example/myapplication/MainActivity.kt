@@ -1,13 +1,17 @@
 package com.example.myapplication
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.gson.Gson
+import com.squareup.picasso.Picasso
 import okhttp3.*
 import java.io.IOException
 import java.net.URL
@@ -16,7 +20,13 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
 
-    private lateinit var categoriesAdapter: CategoriesAdapter
+    private lateinit var exploreView: TextView
+
+    private lateinit var tryView: TextView
+
+    private lateinit var randomView: TextView
+
+    private lateinit var imageView: ImageView
 
     private lateinit var circularProgressIndicator: CircularProgressIndicator
 
@@ -25,9 +35,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         recyclerView = findViewById(R.id.recycler_view)
+        exploreView = findViewById(R.id.exploreview_name)
+        tryView = findViewById(R.id.tryview_name)
+        randomView = findViewById(R.id.randomview_name)
+        imageView = findViewById(R.id.imageview_name)
         circularProgressIndicator = findViewById(R.id.circular_progress_indicator)
 
-        val url = URL("https://www.themealdb.com/api/json/v1/1/categories.php")
+        val url = URL("https://www.themealdb.com/api/json/v1/1/random.php")
 
         val request = Request.Builder()
             .url(url)
@@ -36,8 +50,9 @@ class MainActivity : AppCompatActivity() {
         val client = OkHttpClient()
 
         circularProgressIndicator.visibility = View.VISIBLE
+        tryView.visibility = View.GONE
 
-        client.newCall(request).enqueue(object : Callback {
+        val callback = object : Callback {
 
             override fun onFailure(call: Call, e: IOException) {
                 Log.e("OKHTTP", e.localizedMessage)
@@ -47,20 +62,39 @@ class MainActivity : AppCompatActivity() {
             override fun onResponse(call: Call, response: Response) {
                 response.body?.string()?.let {
                     val gson = Gson()
-                    val categoriesResponse = gson.fromJson(it, CategoriesResponse::class.java)
-                    categoriesResponse.categories?.let { it1 ->
+                    val recipeResponse = gson.fromJson(it, RecipeResponse::class.java)
+                    recipeResponse.recipe?.let { it1 ->
                         runOnUiThread {
                             circularProgressIndicator.visibility = View.GONE
-                            categoriesAdapter = CategoriesAdapter(it1)
-                            recyclerView.adapter = categoriesAdapter
-                            recyclerView.layoutManager = LinearLayoutManager(applicationContext)
+                            tryView.visibility = View.VISIBLE
+                            Picasso.get().load(it1.get(0).strMealThumb).into(imageView)
+
+                            tryView.setOnClickListener {
+                                val context = tryView.context
+                                val intent = Intent(context, RecipeActivity::class.java)
+                                intent.putExtra("recipe_id", it1.get(0).idMeal.toString())
+                                context.startActivity(intent)
+                            }
                         }
 
                     }
-                    Log.d("OKHTTP", "Got " + categoriesResponse.categories?.count() + " categories")
+                    Log.d("OKHTTP", "Got " + recipeResponse.recipe?.count() + " recipe")
                 }
             }
-        })
+        }
 
+        client.newCall(request).enqueue(callback)
+
+        exploreView.setOnClickListener {
+            val context = exploreView.context
+            val intent = Intent(context, CategoryListActivity::class.java)
+            context.startActivity(intent)
+        }
+
+        randomView.setOnClickListener {
+            circularProgressIndicator.visibility = View.VISIBLE
+            tryView.visibility = View.GONE
+            client.newCall(request).enqueue(callback)
+        }
     }
 }

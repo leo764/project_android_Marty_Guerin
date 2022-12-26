@@ -31,7 +31,8 @@ class MealsAdapter(val meals: List<Meal>): RecyclerView.Adapter<MealViewHolder>(
             val context = holder.nameitemView.context
             val intent = Intent(context, RecipeActivity::class.java)
             intent.putExtra("recipe_id", meals.get(position).idMeal.toString())
-            context.startActivity(intent)}
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {

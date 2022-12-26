@@ -32,7 +32,8 @@ class CategoriesAdapter(val categories: List<Category>): RecyclerView.Adapter<Ca
             val context = holder.nameitemView.context
             val intent = Intent(context, MealListActivity::class.java)
             intent.putExtra("category_name", categories.get(position).strCategory.toString())
-            context.startActivity(intent)}
+            context.startActivity(intent)
+        }
     }
 
     override fun getItemCount(): Int {
