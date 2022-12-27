@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.recipe.RecipeActivity
 import com.squareup.picasso.Picasso
 
 class MealViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

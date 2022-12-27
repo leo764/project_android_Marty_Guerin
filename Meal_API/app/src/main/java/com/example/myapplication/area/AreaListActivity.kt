@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.area
 
 import android.os.Bundle
 import android.util.Log
@@ -6,6 +6,9 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.AreasAdapter
+import com.example.myapplication.AreasResponse
+import com.example.myapplication.R
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.gson.Gson
 import okhttp3.*

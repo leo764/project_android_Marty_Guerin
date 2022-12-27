@@ -7,10 +7,12 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.area.AreaListActivity
+import com.example.myapplication.category.CategoryListActivity
+import com.example.myapplication.recipe.RecipeActivity
+import com.example.myapplication.searchname.SearchNameActivity
 import com.google.android.material.progressindicator.CircularProgressIndicator
-import com.google.android.material.textfield.TextInputEditText
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 import okhttp3.*
