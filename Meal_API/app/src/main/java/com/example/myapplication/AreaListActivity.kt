@@ -12,23 +12,22 @@ import okhttp3.*
 import java.io.IOException
 import java.net.URL
 
-class MealListActivity : AppCompatActivity(), java.io.Serializable {
+class AreaListActivity : AppCompatActivity() {
 
     private lateinit var recyclerView: RecyclerView
 
-    private lateinit var mealsAdapter: MealsAdapter
+    private lateinit var areasAdapter: AreasAdapter
 
     private lateinit var circularProgressIndicator: CircularProgressIndicator
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_meal_list)
+        setContentView(R.layout.activity_area)
 
-        recyclerView = findViewById(R.id.recycler_view_meal_list)
-        circularProgressIndicator = findViewById(R.id.circular_progress_indicator_meal_list)
-        val category_name = intent?.extras?.getString("category_name").toString()
+        recyclerView = findViewById(R.id.recycler_view)
+        circularProgressIndicator = findViewById(R.id.circular_progress_indicator)
 
-        val url = URL("https://www.themealdb.com/api/json/v1/1/filter.php?"+category_name)
+        val url = URL("https://www.themealdb.com/api/json/v1/1/list.php?a=list")
 
         val request = Request.Builder()
             .url(url)
@@ -48,17 +47,17 @@ class MealListActivity : AppCompatActivity(), java.io.Serializable {
             override fun onResponse(call: Call, response: Response) {
                 response.body?.string()?.let {
                     val gson = Gson()
-                    val mealsResponse = gson.fromJson(it, MealsResponse::class.java)
-                    mealsResponse.meals?.let { it1 ->
+                    val areasResponse = gson.fromJson(it, AreasResponse::class.java)
+                    areasResponse.areas?.let { it1 ->
                         runOnUiThread {
                             circularProgressIndicator.visibility = View.GONE
-                            mealsAdapter = MealsAdapter(it1)
-                            recyclerView.adapter = mealsAdapter
+                            areasAdapter = AreasAdapter(it1)
+                            recyclerView.adapter = areasAdapter
                             recyclerView.layoutManager = LinearLayoutManager(applicationContext)
                         }
 
                     }
-                    Log.d("OKHTTP", "Got " + mealsResponse.meals?.count() + " meals")
+                    Log.d("OKHTTP", "Got " + areasResponse.areas?.count() + " areas")
                 }
             }
         })

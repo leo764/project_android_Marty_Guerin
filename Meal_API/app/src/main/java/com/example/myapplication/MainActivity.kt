@@ -31,6 +31,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var searchNameView : TextView
 
+    private lateinit var areaView : TextView
+
     private lateinit var circularProgressIndicator: CircularProgressIndicator
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         tryView = findViewById(R.id.tryview_name)
         randomView = findViewById(R.id.randomview_name)
         imageView = findViewById(R.id.imageview_name)
+        areaView = findViewById(R.id.exploreareaview_name)
         circularProgressIndicator = findViewById(R.id.circular_progress_indicator)
         searchNameView = findViewById(R.id.searchnameview_name)
 
@@ -104,6 +107,12 @@ class MainActivity : AppCompatActivity() {
         searchNameView.setOnClickListener {
             val context = searchNameView.context
             val intent = Intent(context, SearchNameActivity::class.java)
+            context.startActivity(intent)
+        }
+
+        areaView.setOnClickListener {
+            val context = areaView.context
+            val intent = Intent(context, AreaListActivity::class.java)
             context.startActivity(intent)
         }
 

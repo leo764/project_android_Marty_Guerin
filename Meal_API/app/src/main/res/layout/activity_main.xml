@@ -46,7 +46,7 @@
         android:text="Try this recipe"
         android:drawablePadding="10dp"
         android:background="@drawable/roundbutton_item"
-        app:layout_constraintBottom_toTopOf="@id/exploreview_name"
+        app:layout_constraintBottom_toTopOf="@id/randomview_name"
         android:id="@+id/tryview_name" />
 
     <TextView
@@ -58,10 +58,25 @@
         android:paddingBottom="5dp"
         android:layout_marginTop="400dp"
         android:gravity="center"
-        android:text="Explore categories"
+        android:text="Get random recipe"
         android:drawablePadding="10dp"
         android:background="@drawable/roundbutton_item"
         app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/randomview_name" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="22dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="Explore categories"
+        android:drawablePadding="10dp"
+        android:background="@drawable/roundbutton_item"
+        app:layout_constraintTop_toBottomOf="@id/randomview_name"
         android:id="@+id/exploreview_name" />
 
     <TextView
@@ -73,11 +88,11 @@
         android:paddingBottom="5dp"
         android:layout_marginTop="10dp"
         android:gravity="center"
-        android:text="Get random recipe"
+        android:text="Explore areas"
         android:drawablePadding="10dp"
         android:background="@drawable/roundbutton_item"
         app:layout_constraintTop_toBottomOf="@id/exploreview_name"
-        android:id="@+id/randomview_name" />
+        android:id="@+id/exploreareaview_name" />
 
     <TextView
         android:layout_width="match_parent"
@@ -91,7 +106,7 @@
         android:text="Search by name"
         android:drawablePadding="10dp"
         android:background="@drawable/roundbutton_item"
-        app:layout_constraintTop_toBottomOf="@id/randomview_name"
+        app:layout_constraintTop_toBottomOf="@id/exploreareaview_name"
         android:id="@+id/searchnameview_name" />
 
     <com.google.android.material.progressindicator.CircularProgressIndicator
