@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.MealsAdapter
 import com.example.myapplication.MealsResponse
 import com.example.myapplication.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.textfield.TextInputEditText
 import com.google.gson.Gson
@@ -29,6 +30,8 @@ class SearchNameActivity : AppCompatActivity() {
 
     private lateinit var circularProgressIndicator: CircularProgressIndicator
 
+    private lateinit var returnButton : FloatingActionButton
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_searchname)
@@ -37,6 +40,7 @@ class SearchNameActivity : AppCompatActivity() {
         searchView = findViewById(R.id.searchview_name)
         validateView = findViewById(R.id.validateview_name)
         circularProgressIndicator = findViewById(R.id.circular_progress_indicator)
+        returnButton = findViewById(R.id.return_button)
 
         val callback = object : Callback {
 
@@ -76,6 +80,10 @@ class SearchNameActivity : AppCompatActivity() {
             val client = OkHttpClient()
 
             client.newCall(request).enqueue(callback)
+        }
+
+        returnButton.setOnClickListener {
+            finish()
         }
     }
 }

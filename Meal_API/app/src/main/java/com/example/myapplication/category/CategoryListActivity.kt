@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.CategoriesAdapter
 import com.example.myapplication.CategoriesResponse
 import com.example.myapplication.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.gson.Gson
 import okhttp3.*
@@ -23,12 +24,15 @@ class CategoryListActivity : AppCompatActivity() {
 
     private lateinit var circularProgressIndicator: CircularProgressIndicator
 
+    private lateinit var returnButton : FloatingActionButton
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_category)
 
         recyclerView = findViewById(R.id.recycler_view)
         circularProgressIndicator = findViewById(R.id.circular_progress_indicator)
+        returnButton = findViewById(R.id.return_button)
 
         val url = URL("https://www.themealdb.com/api/json/v1/1/categories.php")
 
@@ -64,5 +68,9 @@ class CategoryListActivity : AppCompatActivity() {
                 }
             }
         })
+
+        returnButton.setOnClickListener {
+            finish()
+        }
     }
 }

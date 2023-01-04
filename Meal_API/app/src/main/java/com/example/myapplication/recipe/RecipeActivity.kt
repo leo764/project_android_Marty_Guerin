@@ -1,5 +1,6 @@
 package com.example.myapplication.recipe
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -9,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.RecipeAdapter
 import com.example.myapplication.RecipeResponse
+import com.example.myapplication.category.CategoryListActivity
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.gson.Gson
 import okhttp3.*
@@ -23,12 +26,16 @@ class RecipeActivity : AppCompatActivity(){
 
     private lateinit var circularProgressIndicator: CircularProgressIndicator
 
+    private lateinit var returnButton : FloatingActionButton
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_recipe)
 
         recyclerView = findViewById(R.id.recycler_view)
         circularProgressIndicator = findViewById(R.id.circular_progress_indicator)
+        returnButton = findViewById(R.id.return_button)
+
         val recipe_id = intent?.extras?.getString("recipe_id").toString()
 
         val url = URL("https://www.themealdb.com/api/json/v1/1/lookup.php?i="+recipe_id)
@@ -65,5 +72,9 @@ class RecipeActivity : AppCompatActivity(){
                 }
             }
         })
+
+        returnButton.setOnClickListener {
+            finish()
+        }
     }
 }

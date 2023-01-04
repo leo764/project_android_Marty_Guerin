@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.AreasAdapter
 import com.example.myapplication.AreasResponse
 import com.example.myapplication.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.gson.Gson
 import okhttp3.*
@@ -23,12 +24,15 @@ class AreaListActivity : AppCompatActivity() {
 
     private lateinit var circularProgressIndicator: CircularProgressIndicator
 
+    private lateinit var returnButton : FloatingActionButton
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_area)
 
         recyclerView = findViewById(R.id.recycler_view)
         circularProgressIndicator = findViewById(R.id.circular_progress_indicator)
+        returnButton = findViewById(R.id.return_button)
 
         val url = URL("https://www.themealdb.com/api/json/v1/1/list.php?a=list")
 
@@ -64,5 +68,9 @@ class AreaListActivity : AppCompatActivity() {
                 }
             }
         })
+
+        returnButton.setOnClickListener {
+            finish()
+        }
     }
 }
