@@ -119,6 +119,21 @@
         app:layout_constraintTop_toBottomOf="@id/exploreareaview_name"
         android:id="@+id/searchnameview_name" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="22dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="Search by ingredient"
+        android:drawablePadding="10dp"
+        android:background="@drawable/roundbutton_item"
+        app:layout_constraintTop_toBottomOf="@id/searchnameview_name"
+        android:id="@+id/searchingredientview_name" />
+
     <com.google.android.material.progressindicator.CircularProgressIndicator
         android:id="@+id/circular_progress_indicator"
         android:layout_width="wrap_content"

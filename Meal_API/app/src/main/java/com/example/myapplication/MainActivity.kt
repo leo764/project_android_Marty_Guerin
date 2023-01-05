@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.area.AreaListActivity
 import com.example.myapplication.category.CategoryListActivity
 import com.example.myapplication.recipe.RecipeActivity
+import com.example.myapplication.searchingredients.SearchIngredientActivity
 import com.example.myapplication.searchname.SearchNameActivity
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.gson.Gson
@@ -33,6 +34,8 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var searchNameView : TextView
 
+    private lateinit var searchIngredientView : TextView
+
     private lateinit var areaView : TextView
 
     private lateinit var circularProgressIndicator: CircularProgressIndicator
@@ -49,6 +52,7 @@ class MainActivity : AppCompatActivity() {
         areaView = findViewById(R.id.exploreareaview_name)
         circularProgressIndicator = findViewById(R.id.circular_progress_indicator)
         searchNameView = findViewById(R.id.searchnameview_name)
+        searchIngredientView = findViewById(R.id.searchingredientview_name)
 
         val url = URL("https://www.themealdb.com/api/json/v1/1/random.php")
 
@@ -115,6 +119,12 @@ class MainActivity : AppCompatActivity() {
         areaView.setOnClickListener {
             val context = areaView.context
             val intent = Intent(context, AreaListActivity::class.java)
+            context.startActivity(intent)
+        }
+
+        searchIngredientView.setOnClickListener {
+            val context = searchIngredientView.context
+            val intent = Intent(context, SearchIngredientActivity::class.java)
             context.startActivity(intent)
         }
 
