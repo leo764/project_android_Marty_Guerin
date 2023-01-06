@@ -1,15 +1,17 @@
 package com.example.myapplication
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.area.AreaListActivity
 import com.example.myapplication.category.CategoryListActivity
+import com.example.myapplication.internetInterrupted.InternetInterruptedActivity
 import com.example.myapplication.recipe.RecipeActivity
 import com.example.myapplication.searchingredients.SearchIngredientActivity
 import com.example.myapplication.searchname.SearchNameActivity
@@ -19,6 +21,7 @@ import com.squareup.picasso.Picasso
 import okhttp3.*
 import java.io.IOException
 import java.net.URL
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -69,7 +72,13 @@ class MainActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call, e: IOException) {
                 Log.e("OKHTTP", e.localizedMessage)
-                circularProgressIndicator.visibility = View.GONE
+
+                runOnUiThread {
+                    circularProgressIndicator.visibility = View.GONE
+                    val intent =
+                        Intent(recyclerView.context, InternetInterruptedActivity::class.java)
+                    recyclerView.context.startActivity(intent)
+                }
             }
 
             override fun onResponse(call: Call, response: Response) {

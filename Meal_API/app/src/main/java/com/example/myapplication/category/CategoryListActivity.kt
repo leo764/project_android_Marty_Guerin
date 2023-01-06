@@ -1,5 +1,6 @@
 package com.example.myapplication.category
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.CategoriesAdapter
 import com.example.myapplication.CategoriesResponse
 import com.example.myapplication.R
+import com.example.myapplication.internetInterrupted.InternetInterruptedActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.gson.Gson
@@ -48,7 +50,13 @@ class CategoryListActivity : AppCompatActivity() {
 
             override fun onFailure(call: Call, e: IOException) {
                 Log.e("OKHTTP", e.localizedMessage)
-                circularProgressIndicator.visibility = View.GONE
+
+                runOnUiThread {
+                    circularProgressIndicator.visibility = View.GONE
+                    val intent =
+                        Intent(recyclerView.context, InternetInterruptedActivity::class.java)
+                    recyclerView.context.startActivity(intent)
+                }
             }
 
             override fun onResponse(call: Call, response: Response) {

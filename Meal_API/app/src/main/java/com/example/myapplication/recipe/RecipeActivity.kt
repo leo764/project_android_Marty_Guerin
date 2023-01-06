@@ -11,6 +11,7 @@ import com.example.myapplication.R
 import com.example.myapplication.RecipeAdapter
 import com.example.myapplication.RecipeResponse
 import com.example.myapplication.category.CategoryListActivity
+import com.example.myapplication.internetInterrupted.InternetInterruptedActivity
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.gson.Gson
@@ -52,7 +53,13 @@ class RecipeActivity : AppCompatActivity(){
 
             override fun onFailure(call: Call, e: IOException) {
                 Log.e("OKHTTP", e.localizedMessage)
-                circularProgressIndicator.visibility = View.GONE
+
+                runOnUiThread {
+                    circularProgressIndicator.visibility = View.GONE
+                    val intent =
+                        Intent(recyclerView.context, InternetInterruptedActivity::class.java)
+                    recyclerView.context.startActivity(intent)
+                }
             }
 
             override fun onResponse(call: Call, response: Response) {
