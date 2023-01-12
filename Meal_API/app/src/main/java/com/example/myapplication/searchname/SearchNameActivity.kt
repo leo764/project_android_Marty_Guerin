@@ -34,6 +34,8 @@ class SearchNameActivity : AppCompatActivity() {
 
     private lateinit var returnButton : FloatingActionButton
 
+    private lateinit var urlString : String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_searchname)
@@ -53,6 +55,8 @@ class SearchNameActivity : AppCompatActivity() {
                     circularProgressIndicator.visibility = View.GONE
                     val intent =
                         Intent(recyclerView.context, InternetInterruptedActivity::class.java)
+                    intent.putExtra("url", urlString)
+                    finish()
                     recyclerView.context.startActivity(intent)
                 }
             }
@@ -75,11 +79,28 @@ class SearchNameActivity : AppCompatActivity() {
             }
         }
 
+        urlString = intent?.extras?.getString("url").toString()
+
+        if (urlString.contains("https://www.themealdb.com/api/json/v1/1/search.php?s=")) {
+            circularProgressIndicator.visibility = View.VISIBLE
+
+            val url = URL(urlString)
+
+            val request = Request.Builder()
+                .url(url)
+                .build()
+
+            val client = OkHttpClient()
+
+            client.newCall(request).enqueue(callback)
+        }
+
         validateView.setOnClickListener {
 
             circularProgressIndicator.visibility = View.VISIBLE
 
-            val url = URL("https://www.themealdb.com/api/json/v1/1/search.php?s="+searchView.text.toString())
+            urlString = "https://www.themealdb.com/api/json/v1/1/search.php?s="+searchView.text.toString()
+            val url = URL(urlString)
 
             val request = Request.Builder()
                 .url(url)

@@ -38,8 +38,13 @@ class RecipeActivity : AppCompatActivity(){
         returnButton = findViewById(R.id.return_button)
 
         val recipe_id = intent?.extras?.getString("recipe_id").toString()
+        var urlString = intent?.extras?.getString("url").toString()
 
-        val url = URL("https://www.themealdb.com/api/json/v1/1/lookup.php?i="+recipe_id)
+        if (! urlString.contains("https://www.themealdb.com/api/json/v1/1/lookup.php?i=")) {
+            urlString = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=" + recipe_id
+        }
+
+        val url = URL(urlString)
 
         val request = Request.Builder()
             .url(url)
@@ -58,6 +63,8 @@ class RecipeActivity : AppCompatActivity(){
                     circularProgressIndicator.visibility = View.GONE
                     val intent =
                         Intent(recyclerView.context, InternetInterruptedActivity::class.java)
+                    intent.putExtra("url", urlString)
+                    finish()
                     recyclerView.context.startActivity(intent)
                 }
             }

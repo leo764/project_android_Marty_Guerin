@@ -37,8 +37,13 @@ class MealListActivity : AppCompatActivity(), java.io.Serializable {
         returnButton = findViewById(R.id.return_button)
 
         val category_name = intent?.extras?.getString("category_name").toString()
+        var urlString = intent?.extras?.getString("url").toString()
 
-        val url = URL("https://www.themealdb.com/api/json/v1/1/filter.php?"+category_name)
+        if (! urlString.contains("https://www.themealdb.com/api/json/v1/1/filter.php?")) {
+            urlString = "https://www.themealdb.com/api/json/v1/1/filter.php?" + category_name
+        }
+
+        val url = URL(urlString)
 
         val request = Request.Builder()
             .url(url)
@@ -57,6 +62,8 @@ class MealListActivity : AppCompatActivity(), java.io.Serializable {
                     circularProgressIndicator.visibility = View.GONE
                     val intent =
                         Intent(recyclerView.context, InternetInterruptedActivity::class.java)
+                    intent.putExtra("url", urlString)
+                    finish()
                     recyclerView.context.startActivity(intent)
                 }
             }

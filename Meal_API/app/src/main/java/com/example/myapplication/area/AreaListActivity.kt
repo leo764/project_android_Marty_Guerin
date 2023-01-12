@@ -36,7 +36,8 @@ class AreaListActivity : AppCompatActivity() {
         circularProgressIndicator = findViewById(R.id.circular_progress_indicator)
         returnButton = findViewById(R.id.return_button)
 
-        val url = URL("https://www.themealdb.com/api/json/v1/1/list.php?a=list")
+        val urlString = "https://www.themealdb.com/api/json/v1/1/list.php?a=list"
+        val url = URL(urlString)
 
         val request = Request.Builder()
             .url(url)
@@ -55,6 +56,8 @@ class AreaListActivity : AppCompatActivity() {
                     circularProgressIndicator.visibility = View.GONE
                     val intent =
                         Intent(recyclerView.context, InternetInterruptedActivity::class.java)
+                    intent.putExtra("url", urlString)
+                    finish()
                     recyclerView.context.startActivity(intent)
                 }
             }

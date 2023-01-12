@@ -51,4 +51,19 @@
         app:layout_constraintTop_toBottomOf="@id/titleview_name"
         android:id="@+id/refreshview_name" />
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="22dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="Go back to home page"
+        android:drawablePadding="10dp"
+        android:background="@drawable/roundbutton_item"
+        app:layout_constraintTop_toBottomOf="@id/refreshview_name"
+        android:id="@+id/gobackhomeview_name" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
